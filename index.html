@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="custom.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+<body>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th class="text-right">Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>0</td>
+                <td>Arroz</td>
+                <td class="text-right">R$ 5,00</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Feijão</td>
+                <td class="text-right">R$ 8,00</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Farinha</td>
+                <td class="text-right">R$ 10,00</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Macarrão</td>
+                <td class="text-right">R$ 4.50</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Sal</td>
+                <td class="text-right">R$ 3.20</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form action="">
+        <label for="">Digite o código do seu produto</label><br/>
+        <input type="text" id="codigo">
+        <button id="botao" class="btn btn-primary" onclick="adicionar()" type="button">Adicionar</button>
+    </form>
+<br/>
+    <button class="btn btn-success" onclick="finalizarVenda()">Finalizar Venda</button>
+
+    <p id="total"></p>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+
+    <script>
+        class Produto {
+            constructor(nome, valor) {
+                this.nome = nome;
+                this.valor = valor;
+            }
+        }
+
+        var arroz = new Produto("Arroz", 5);
+        var feijao = new Produto("Feijão", 8);
+        var farinha = new Produto("Farinha", 10);
+        var macarrao = new Produto("Macarrão", 4.50);
+        var sal = new Produto("Sal", 3.20);
+        var produtos = [arroz, feijao, farinha, macarrao, sal];
+
+        class Venda {
+            constructor() {
+                this.produtos = [];
+            }
+            
+            adicionarProduto(produto) {
+                this.produtos.push(produto);
+            }
+            
+            totalVenda() {
+                this.soma = 0;
+                this.produtos.forEach((produto) => {
+                    this.soma = this.soma + produto.valor;
+                });
+                
+                return this.soma;
+            }
+        }
+
+        var venda = new Venda();
+
+        function adicionar() {
+            var codigo = document.querySelector("#codigo").value;
+            venda.adicionarProduto(produtos[codigo]);
+            document.querySelector("#codigo").value = "";
+            alert("Produto adicionado com sucesso!");
+        }
+
+        function finalizarVenda() {
+            document.querySelector("#total").innerHTML = "O total da sua venda é: " + venda.totalVenda();
+        }
+
+    </script>
+</body>
+</html>
